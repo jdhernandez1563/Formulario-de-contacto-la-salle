@@ -16,7 +16,7 @@ Salle y su paleta institucional:
 - Migración idempotente de la tabla `contactos`.
 - Logs detallados habilitados solamente en desarrollo.
 - Pruebas automatizadas de integración para los tres casos obligatorios.
-- Blueprint de Render que crea y conecta automáticamente Render PostgreSQL.
+- Despliegue manual en Render (plan gratuito) con PostgreSQL administrado.
 
 ## Requisitos
 
@@ -285,25 +285,58 @@ Respuesta exitosa:
 
 ## Despliegue en Render
 
-`render.yaml` declara dos recursos:
+El despliegue se realizó de forma manual en el plan gratuito de Render, sin
+usar Blueprint. Se crearon dos recursos desde el panel:
 
-1. El servicio web Node.js que compila Angular y ejecuta Express.
-2. Una base administrada Render PostgreSQL.
+### 1. Base de datos PostgreSQL
 
-Render asigna la cadena privada de la base a `DATABASE_URL` mediante
-`fromDatabase`. El comando `preDeployCommand` ejecuta la migración antes de
-publicar cada versión.
+1. En Render, seleccionar **New > PostgreSQL**.
+2. Asignar un nombre (por ejemplo `formulario-contacto-la-salle-db`), base
+   `formulario_lasalle` y plan **Free**.
+3. Crear la base y copiar la **Internal Database URL** que genera Render.
 
-Pasos:
+### 2. Servicio web
 
-1. Subir el proyecto a un repositorio Git.
-2. En Render, seleccionar **New > Blueprint**.
-3. Conectar el repositorio que contiene `render.yaml`.
-4. Revisar los recursos y aplicar el Blueprint.
-5. Confirmar que `/api/health` devuelve `database: "connected"`.
+1. En Render, seleccionar **New > Web Service** y conectar el repositorio
+   de GitHub.
+2. Configurar:
+   - **Runtime**: Node
+   - **Build Command**:
+     `npm ci && npm --prefix frontend ci && npm run build`
+   - **Start Command**: `npm run start:production`
+   - **Plan**: Free
+3. En **Environment > Environment Variables** agregar:
 
-No se necesita disco persistente: los contactos permanecen en PostgreSQL entre
-despliegues y pueden ser consultados desde el panel de Render.
+   | Variable          | Valor                                          |
+   | ----------------- | ---------------------------------------------- |
+   | `NODE_ENV`        | `production`                                   |
+   | `ENABLE_DEBUG`    | `false`                                        |
+   | `DATABASE_SCHEMA` | `production`                                   |
+   | `DATABASE_SSL`    | `false`                                        |
+   | `DATABASE_URL`    | Internal Database URL copiada en el paso 1     |
+
+4. Crear el servicio. Render compila el frontend Angular y arranca Express.
+
+### 3. Migración de la base de datos
+
+La tabla `contactos` se crea automáticamente: el servidor ejecuta
+`storage.ensureStorage()` durante cada arranque (`src/server.js`), por lo que
+no hace falta un paso de migración separado.
+
+### 4. Verificación
+
+- Abrir la URL asignada (`https://<servicio>.onrender.com`): debe mostrar el
+  formulario.
+- Visitar `/api/health`: debe responder `database: "connected"`.
+
+Notas:
+
+- El plan gratuito suspende la instancia por inactividad; la primera petición
+  puede tardar ~50 segundos en responder.
+- Los contactos permanecen en PostgreSQL entre despliegues y pueden
+  consultarse desde el panel de Render.
+- El archivo `render.yaml` se conserva como referencia de la configuración,
+  pero el despliegue descrito aquí es manual.
 
 ## Seguridad
 
