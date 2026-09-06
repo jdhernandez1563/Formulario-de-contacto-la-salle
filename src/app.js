@@ -20,6 +20,16 @@ function resolveFrontendDirectory() {
     }
   }
 
+  const distRoot = path.resolve(process.cwd(), 'frontend/dist');
+  try {
+    const listing = fs.readdirSync(distRoot, { recursive: true });
+    console.error(
+      `[startup] index.html no encontrado. Contenido de frontend/dist: ${JSON.stringify(listing)}`,
+    );
+  } catch {
+    console.error('[startup] index.html no encontrado. frontend/dist no existe.');
+  }
+
   return path.resolve(process.cwd(), candidates[0]);
 }
 
