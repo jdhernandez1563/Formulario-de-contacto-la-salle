@@ -1,0 +1,139 @@
+:host {
+  display: flex;
+}
+
+.identity-panel {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6vh 4vw 4vh;
+  overflow: hidden;
+  color: #ffffff;
+  background: #113250;
+}
+
+.identity-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+  background-size: 5vw 5vw;
+  mask-image: linear-gradient(to bottom right, black, transparent 72%);
+}
+
+.identity-panel::after {
+  position: absolute;
+  right: -14vw;
+  bottom: -6vh;
+  width: 20vw;
+  height: 20vw;
+  content: '';
+  border: 3vw solid rgba(247, 168, 0, 0.96);
+  transform: rotate(45deg);
+}
+
+.yellow-orbit {
+  position: absolute;
+  border: 2px solid rgba(247, 168, 0, 0.52);
+  border-radius: 50%;
+}
+
+.orbit-one {
+  top: -14vh;
+  right: -14vw;
+  width: 26vw;
+  height: 26vw;
+}
+
+.orbit-two {
+  top: -8vh;
+  right: -9vw;
+  width: 18vw;
+  height: 18vw;
+}
+
+.identity-content,
+.panel-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.section-number {
+  display: block;
+  margin-bottom: 6vh;
+  color: #f7a800;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: clamp(0.7vw, 11px, 1vw);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.overline {
+  margin: 0 0 1.5vh;
+  font-size: clamp(0.7vw, 11px, 1vw);
+  font-weight: 800;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.identity-content .overline {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+h1 {
+  max-width: 42vw;
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.5vh, 5vw, 7vh);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+h1 span {
+  display: block;
+  color: #f7a800;
+}
+
+.lead {
+  max-width: 38vw;
+  margin: 3vh 0 4vh;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: clamp(1vh, 16px, 1.6vh);
+  line-height: 1.72;
+}
+
+.panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 3vh;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: clamp(0.65vw, 10px, 0.9vw);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 680px) {
+  .identity-panel {
+    padding: 4vh 6vw 3vh;
+  }
+
+  .section-number {
+    margin-bottom: 5vh;
+  }
+
+  h1 {
+    font-size: 7vw;
+  }
+
+  .panel-footer span:last-child {
+    display: none;
+  }
+}

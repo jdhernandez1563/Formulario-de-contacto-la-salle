@@ -1,0 +1,31 @@
+{
+  "name": "formulario-contacto-la-salle",
+  "version": "1.0.0",
+  "description": "Formulario de contacto multiambiente para La Salle",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node scripts/development.js",
+    "build": "npm --prefix frontend run build",
+    "migrate": "node scripts/migrate.js",
+    "setup": "npm install && npm --prefix frontend install",
+    "start:development": "node scripts/start-environment.js development",
+    "start:test": "node scripts/start-environment.js test",
+    "start:production": "node scripts/start-environment.js production",
+    "test": "node --test --test-reporter=spec",
+    "check": "node --check src/server.js && node --check src/app.js && node --check src/config/environment.js && node --check src/services/contactStorage.js && node --check scripts/development.js && node --check scripts/migrate.js && npm --prefix frontend run build"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "dependencies": {
+    "dotenv": "16.6.1",
+    "express": "5.1.0",
+    "pg": "8.16.3"
+  },
+  "devDependencies": {
+    "supertest": "7.1.4"
+  },
+  "license": "MIT"
+}

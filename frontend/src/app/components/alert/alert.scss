@@ -1,0 +1,164 @@
+.alert-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(17, 50, 80, 0.55);
+  backdrop-filter: blur(3px);
+  animation: overlay-in 160ms ease-out;
+}
+
+.alert-modal {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 40px 32px 28px;
+  background: #ffffff;
+  border-top: 5px solid #113250;
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(17, 50, 80, 0.35);
+  text-align: center;
+  animation: modal-in 200ms ease-out;
+}
+
+.alert-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  padding: 0;
+  color: #ffffff;
+  background: #b42318;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.alert-close:hover {
+  background: #8f1c13;
+  transform: scale(1.08);
+}
+
+.alert-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alert-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  margin-bottom: 16px;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.alert-title {
+  margin: 0 0 10px;
+  color: #113250;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.alert-message {
+  margin: 0 0 24px;
+  color: #687887;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.alert-accept {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 24px;
+  color: #ffffff;
+  background: #113250;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition: background 160ms ease;
+}
+
+.alert-accept:hover {
+  background: #1b4b74;
+}
+
+.alert-success {
+  border-top-color: #126346;
+}
+
+.alert-success .alert-icon {
+  background: #126346;
+}
+
+.alert-error {
+  border-top-color: #b42318;
+}
+
+.alert-error .alert-icon {
+  background: #b42318;
+}
+
+.alert-warning {
+  border-top-color: #f7a800;
+}
+
+.alert-warning .alert-icon {
+  background: #f7a800;
+}
+
+.alert-info {
+  border-top-color: #113250;
+}
+
+.alert-info .alert-icon {
+  background: #113250;
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alert-overlay,
+  .alert-modal {
+    animation: none;
+  }
+}

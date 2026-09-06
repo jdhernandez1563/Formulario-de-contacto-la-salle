@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  min-height: 100vh;
+  color: #113250;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  background: #f2f4f5;
+}
+
+.contact-shell {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(30vw, 0.94fr) minmax(40vw, 1.06fr);
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  background: #ffffff;
+}
+
+@media (max-width: 1050px) {
+  .contact-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

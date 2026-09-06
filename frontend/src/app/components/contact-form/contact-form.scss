@@ -1,0 +1,253 @@
+:host {
+  display: flex;
+}
+
+.form-panel {
+  position: relative;
+  display: grid;
+  flex: 1;
+  align-items: center;
+  padding: 5vh clamp(3vw, 5vw, 6vw);
+  background: linear-gradient(90deg, rgba(17, 50, 80, 0.035) 1px, transparent 1px), #ffffff;
+  background-size: 96px 100%;
+}
+
+.form-panel::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 112px;
+  height: 10px;
+  content: '';
+  background: #f7a800;
+}
+
+.form-panel-inner {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.form-index {
+  display: block;
+  margin-bottom: 43px;
+  color: rgba(17, 50, 80, 0.48);
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.overline {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: #f7a800;
+}
+
+h2 {
+  margin: 0;
+  color: #113250;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(34px, 3vw, 48px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.form-intro > p:last-child {
+  max-width: 570px;
+  margin: 17px 0 32px;
+  color: #687887;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.label-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #113250;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+label span {
+  color: #f7a800;
+}
+
+.character-count {
+  color: #8a969f;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: 10px;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+input,
+textarea {
+  width: 100%;
+  color: #113250;
+  background: #f7f8f8;
+  border: 0;
+  border-bottom: 2px solid #c8d0d6;
+  border-radius: 0;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+input {
+  height: 51px;
+  padding: 0 46px 0 15px;
+}
+
+textarea {
+  min-height: 112px;
+  padding: 15px 46px 15px 15px;
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9ba5ad;
+}
+
+input:focus,
+textarea:focus {
+  background: #ffffff;
+  border-color: #f7a800;
+  box-shadow: 0 7px 0 -5px rgba(247, 168, 0, 0.22);
+}
+
+input[aria-invalid='true'],
+textarea[aria-invalid='true'] {
+  border-color: #b42318;
+}
+
+input:disabled,
+textarea:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.field-marker {
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  color: rgba(17, 50, 80, 0.35);
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: 9px;
+  pointer-events: none;
+}
+
+.textarea-wrap .field-marker {
+  top: 17px;
+}
+
+.field-error {
+  display: block;
+  min-height: 15px;
+  margin-top: 5px;
+  color: #b42318;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+button {
+  display: flex;
+  width: 100%;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2px;
+  padding: 0 18px 0 24px;
+  overflow: hidden;
+  color: #ffffff;
+  background: #113250;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+button:hover:not(:disabled) {
+  background: #1b4b74;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.button-arrow {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: #113250;
+  background: #f7a800;
+  border-radius: 8px;
+  font-size: 17px;
+}
+
+.privacy-note {
+  margin: 14px 0 0;
+  color: #84919b;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1050px) {
+  .form-panel {
+    padding-top: 78px;
+    padding-bottom: 78px;
+  }
+}
+
+@media (max-width: 680px) {
+  .form-panel {
+    padding: 58px 22px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .form-index {
+    margin-bottom: 34px;
+  }
+}

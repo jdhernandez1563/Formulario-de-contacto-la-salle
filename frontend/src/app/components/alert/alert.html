@@ -1,0 +1,19 @@
+<div class="alert-overlay" role="dialog" aria-modal="true" [attr.aria-label]="title">
+  <div
+    class="alert-modal"
+    [class.alert-success]="type() === 'success'"
+    [class.alert-error]="type() === 'error'"
+    [class.alert-warning]="type() === 'warning'"
+    [class.alert-info]="type() === 'info'"
+  >
+    <button class="alert-close" type="button" (click)="close()" aria-label="Cerrar">✕</button>
+
+    <div class="alert-body">
+      <span class="alert-icon" aria-hidden="true">{{ icon }}</span>
+      <h3 class="alert-title">{{ title }}</h3>
+      <p class="alert-message">{{ message() }}</p>
+    </div>
+
+    <button class="alert-accept" type="button" (click)="close()">Aceptar</button>
+  </div>
+</div>

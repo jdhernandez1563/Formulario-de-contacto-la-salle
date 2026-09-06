@@ -1,0 +1,127 @@
+<div class="form-panel">
+  <div class="form-panel-inner">
+    <div class="form-intro">
+      <p class="overline">Escríbenos</p>
+      <h2>¿Cómo podemos ayudarte?</h2>
+      <p>
+        Completa los datos y nuestro equipo revisará tu mensaje. Todos los campos son
+        obligatorios.
+      </p>
+    </div>
+
+    @if (statusMessage()) {
+      <app-alert [type]="alertType()" [message]="statusMessage()" (closed)="dismissAlert()" />
+    }
+
+    <form [formGroup]="contactForm" (ngSubmit)="submit()" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="nombre">
+            Nombre
+            <span aria-hidden="true">*</span>
+          </label>
+          <div class="input-wrap">
+            <input
+              id="nombre"
+              type="text"
+              formControlName="nombre"
+              autocomplete="name"
+              placeholder="Tu nombre completo"
+              maxlength="100"
+              [attr.aria-invalid]="fieldHasError('nombre')"
+              aria-describedby="nombre-error"
+            />
+            <span class="field-marker" aria-hidden="true">01</span>
+          </div>
+          <span id="nombre-error" class="field-error">
+            {{ fieldError('nombre') }}
+          </span>
+        </div>
+
+        <div class="field">
+          <label for="correo">
+            Correo electrónico
+            <span aria-hidden="true">*</span>
+          </label>
+          <div class="input-wrap">
+            <input
+              id="correo"
+              type="email"
+              formControlName="correo"
+              autocomplete="email"
+              placeholder="nombre@correo.com"
+              maxlength="254"
+              [attr.aria-invalid]="fieldHasError('correo')"
+              aria-describedby="correo-error"
+            />
+            <span class="field-marker" aria-hidden="true">02</span>
+          </div>
+          <span id="correo-error" class="field-error">
+            {{ fieldError('correo') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="asunto">
+          Asunto
+          <span aria-hidden="true">*</span>
+        </label>
+        <div class="input-wrap">
+          <input
+            id="asunto"
+            type="text"
+            formControlName="asunto"
+            placeholder="Motivo de tu mensaje"
+            maxlength="150"
+            [attr.aria-invalid]="fieldHasError('asunto')"
+            aria-describedby="asunto-error"
+          />
+          <span class="field-marker" aria-hidden="true">03</span>
+        </div>
+        <span id="asunto-error" class="field-error">
+          {{ fieldError('asunto') }}
+        </span>
+      </div>
+
+      <div class="field">
+        <div class="label-line">
+          <label for="mensaje">
+            Mensaje
+            <span aria-hidden="true">*</span>
+          </label>
+          <span class="character-count">
+            {{ contactForm.controls.mensaje.value.length }} / 2000
+          </span>
+        </div>
+        <div class="input-wrap textarea-wrap">
+          <textarea
+            id="mensaje"
+            formControlName="mensaje"
+            rows="5"
+            placeholder="Cuéntanos en qué podemos ayudarte"
+            maxlength="2000"
+            [attr.aria-invalid]="fieldHasError('mensaje')"
+            aria-describedby="mensaje-error"
+          ></textarea>
+          <span class="field-marker" aria-hidden="true">04</span>
+        </div>
+        <span id="mensaje-error" class="field-error">
+          {{ fieldError('mensaje') }}
+        </span>
+      </div>
+
+      <button type="submit" [disabled]="submissionState() === 'sending'">
+        <span>
+          {{ submissionState() === 'sending' ? 'Enviando mensaje' : 'Enviar mensaje' }}
+        </span>
+        <span class="button-arrow" aria-hidden="true">↗</span>
+      </button>
+    </form>
+
+    <p class="privacy-note">
+      Al enviar este formulario autorizas el tratamiento de la información para responder a tu
+      solicitud.
+    </p>
+  </div>
+</div>
