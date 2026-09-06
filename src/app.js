@@ -1,8 +1,27 @@
 import express from 'express';
+import fs from 'node:fs';
 import path from 'node:path';
 import { config as defaultConfig } from './config/environment.js';
 import { createContactStorage } from './services/contactStorage.js';
 import { normalizeContact, validateContact } from './utils/validation.js';
+
+function resolveFrontendDirectory() {
+  const candidates = [
+    'frontend/dist/frontend/browser',
+    'frontend/dist/frontend',
+    'frontend/dist/browser',
+    'frontend/dist',
+  ];
+
+  for (const candidate of candidates) {
+    const directory = path.resolve(process.cwd(), candidate);
+    if (fs.existsSync(path.join(directory, 'index.html'))) {
+      return directory;
+    }
+  }
+
+  return path.resolve(process.cwd(), candidates[0]);
+}
 
 export function createApp({
   config = defaultConfig,
@@ -13,10 +32,7 @@ export function createApp({
   }),
 } = {}) {
   const app = express();
-  const frontendDirectory = path.resolve(
-    process.cwd(),
-    'frontend/dist/frontend/browser',
-  );
+  const frontendDirectory = resolveFrontendDirectory();
 
   app.disable('x-powered-by');
   app.use((request, response, next) => {
